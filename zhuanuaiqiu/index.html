@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+  本HTML文件用于实现打砖块游戏的前端页面。
+  包含游戏容器、覆盖层（用于显示开始、胜利、失败等信息）、按钮等。
+  通过引入p5.js和brick_breaker.js实现游戏逻辑和渲染。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>打砖块游戏</title>
+  <!-- 引入p5.js库，用于简化Canvas绘图和交互 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <!-- 引入游戏主逻辑脚本 -->
+  <script src="brick_breaker.js"></script>
+  <style>
+    /*
+      页面整体样式设置：
+      - 居中显示内容
+      - 设置渐变背景
+      - 隐藏滚动条
+      - 设置全局字体
+    */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+    /*
+      游戏容器样式：
+      - 相对定位
+      - 阴影和圆角
+      - 隐藏溢出内容
+    */
+    #game-container {
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    /*
+      游戏覆盖层样式：
+      - 绝对定位覆盖整个容器
+      - 半透明黑色背景
+      - 居中显示内容
+      - 文字白色
+      - 过渡动画
+      - 默认不可交互
+    */
+    #game-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    /*
+      按钮样式：
+      - 圆角、橙色背景、白色文字
+      - 阴影和悬停动画
+    */
+    .btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: #FF5722;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .btn:hover {
+      background: #E64A19;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!--
+    游戏主容器，p5.js会在此容器内插入Canvas画布。
+    覆盖层用于显示游戏状态（开始、胜利、失败等）。
+  -->
+  <div id="game-container">
+    <!--
+      游戏覆盖层，包含标题、提示信息和按钮。
+      通过JS动态显示/隐藏和修改内容。
+    -->
+    <div id="game-overlay">
+      <h1 id="overlay-title">游戏开始</h1>
+      <p id="overlay-message">使用← →键移动挡板，按空格键发射球</p>
+      <button id="start-btn" class="btn">开始游戏</button>
+    </div>
+  </div>
+</body>
+</html>
