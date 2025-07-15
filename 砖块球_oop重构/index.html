@@ -1,24 +1,32 @@
 <!DOCTYPE html>
-<!-- 
-  本HTML文件用于实现打砖块游戏的前端页面。
-  适配OOP重构后的多文件结构，使用ES6模块化方式引入各类文件。
+<!--
+  本HTML文件用于打砖块游戏的主页面。
+  包含游戏容器、覆盖层（显示提示和按钮）、以及所有游戏脚本的引入。
+  注释详细，适合初学者学习。
 -->
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>打砖块游戏</title>
-  <!-- 引入p5.js库，用于简化Canvas绘图和交互 -->
+  <!-- 引入p5.js库，简化Canvas绘图和交互操作 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-  <script src="Paddle.js"></script>
-  <script src="Ball.js"></script>
-  <script src="Brick.js"></script>
-  <script src="Powerup.js"></script>
-  <script src="Particle.js"></script>
-  <script src="GameManager.js"></script>
-  <script src="main.js"></script>
+  <!-- 依次引入所有游戏相关的类和主逻辑脚本，顺序很重要！ -->
+  <script src="Paddle.js"></script>   <!-- 挡板类 -->
+  <script src="Ball.js"></script>      <!-- 球类 -->
+  <script src="Brick.js"></script>     <!-- 砖块类 -->
+  <script src="Powerup.js"></script>   <!-- 道具类 -->
+  <script src="Particle.js"></script>  <!-- 粒子特效类 -->
+  <script src="GameManager.js"></script> <!-- 游戏管理器类 -->
+  <script src="main.js"></script>      <!-- 游戏主入口，包含setup/draw等p5.js主循环函数 -->
   <style>
-    /* 页面整体样式设置 */
+    /*
+      页面整体样式：
+      - 居中显示内容
+      - 渐变背景
+      - 隐藏滚动条
+      - 设置全局字体
+    */
     body {
       margin: 0;
       padding: 0;
@@ -30,12 +38,27 @@
       overflow: hidden;
       font-family: 'Arial', sans-serif;
     }
+    /*
+      游戏容器样式：
+      - 相对定位
+      - 阴影和圆角
+      - 隐藏溢出内容
+    */
     #game-container {
       position: relative;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
       border-radius: 8px;
       overflow: hidden;
     }
+    /*
+      游戏覆盖层样式：
+      - 绝对定位覆盖整个容器
+      - 半透明黑色背景
+      - 居中显示内容
+      - 文字白色
+      - 过渡动画
+      - 默认不可交互
+    */
     #game-overlay {
       position: absolute;
       top: 0;
@@ -54,6 +77,11 @@
       transition: opacity 0.5s;
       pointer-events: none;
     }
+    /*
+      按钮样式：
+      - 圆角、橙色背景、白色文字
+      - 阴影和悬停动画
+    */
     .btn {
       margin-top: 20px;
       padding: 12px 30px;
@@ -75,9 +103,15 @@
   </style>
 </head>
 <body>
-  <!-- 游戏主容器，p5.js会在此容器内插入Canvas画布。 -->
+  <!--
+    游戏主容器，p5.js会在此容器内插入Canvas画布。
+    覆盖层用于显示游戏状态（开始、胜利、失败等）。
+  -->
   <div id="game-container">
-    <!-- 游戏覆盖层，包含标题、提示信息和按钮。 -->
+    <!--
+      游戏覆盖层，包含标题、提示信息和按钮。
+      通过JS动态显示/隐藏和修改内容。
+    -->
     <div id="game-overlay">
       <h1 id="overlay-title">游戏开始</h1>
       <p id="overlay-message">使用← →键移动挡板，按空格键发射球</p>
