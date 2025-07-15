@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- 
+  本HTML文件用于实现打砖块游戏的前端页面。
+  适配OOP重构后的多文件结构，使用ES6模块化方式引入各类文件。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>打砖块游戏</title>
+  <!-- 引入p5.js库，用于简化Canvas绘图和交互 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="Paddle.js"></script>
+  <script src="Ball.js"></script>
+  <script src="Brick.js"></script>
+  <script src="Powerup.js"></script>
+  <script src="Particle.js"></script>
+  <script src="GameManager.js"></script>
+  <script src="main.js"></script>
+  <style>
+    /* 页面整体样式设置 */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+    #game-container {
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #game-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: #FF5722;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .btn:hover {
+      background: #E64A19;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- 游戏主容器，p5.js会在此容器内插入Canvas画布。 -->
+  <div id="game-container">
+    <!-- 游戏覆盖层，包含标题、提示信息和按钮。 -->
+    <div id="game-overlay">
+      <h1 id="overlay-title">游戏开始</h1>
+      <p id="overlay-message">使用← →键移动挡板，按空格键发射球</p>
+      <button id="start-btn" class="btn">开始游戏</button>
+    </div>
+  </div>
+</body>
+</html> 
